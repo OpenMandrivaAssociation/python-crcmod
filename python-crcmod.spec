@@ -1,21 +1,22 @@
-%global debug_package %{nil}
 %define oname crcmod
 
-Name:     python-%{oname}
+Name:     python-crcmod
 Version:  1.7
-Release:  7
+Release:  8
 Epoch:    0
 Summary:  Creates functions that efficiently compute CRC's using table lookup
 URL:      https://crcmod.sourceforge.net/
 License:  MIT
 Group:    Development/Python
-Source0:  http://sourceforge.net/projects/crcmod/files/crcmod/crcmod-%{versio}/crcmod-%{version}.tar.gz
+Source0:  http://sourceforge.net/projects/crcmod/files/crcmod/crcmod-%{version}/crcmod-%{version}.tar.gz
 Patch0:   crcmod-1.7-setuptools.patch
-BuildSystem:  python
 
+BuildSystem:  python
 BuildRequires:  python
 BuildRequires:  pkgconfig(python3)
+BuildRequires:  python%{pyver}dist(pip)
 BuildRequires:  python%{pyver}dist(setuptools)
+BuildRequires:  python%{pyver}dist(wheel)
 
 %description
 Create functions that efficiently compute the Cyclic Redundancy Check 
@@ -33,21 +34,10 @@ Features:
       allowed.
     * Forward and bit-reverse algorithms are supported.
 
-%prep
-%autosetup -p1 -n %{oname}-%{version}
-
-%build
+%build -p
 export CFLAGS="%{optflags}"
-%py_build
-
-%install
-%py3_install
-
-# disabled selftest on abf.
-#%%check
-#%%{__python} -m crcmod.test
 
 %files
-%defattr(-,root,root,0755)
-%doc README changelog
-%{_libdir}/python%{py_ver}/site-packages/*
+%doc README
+%{python_sitearch}/%{oname}
+%{python_sitearch}/%{oname}-%{version}-py%{pyver}.*-info
