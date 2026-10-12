@@ -2,7 +2,7 @@
 
 Name:     python-crcmod
 Version:  1.7
-Release:  8
+Release:  9
 Epoch:    0
 Summary:  Creates functions that efficiently compute CRC's using table lookup
 URL:      https://crcmod.sourceforge.net/
